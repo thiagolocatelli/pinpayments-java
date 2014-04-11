@@ -16,6 +16,8 @@ import com.github.thiagolocatelli.pinpayments.model.Charge;
 import com.github.thiagolocatelli.pinpayments.model.ChargeCollection;
 import com.github.thiagolocatelli.pinpayments.model.Customer;
 import com.github.thiagolocatelli.pinpayments.model.CustomerCollection;
+import com.github.thiagolocatelli.pinpayments.model.PinPaymentCollectionResponse;
+import com.github.thiagolocatelli.pinpayments.model.PinPaymentResponse;
 import com.github.thiagolocatelli.pinpayments.model.RefundCollection;
 import com.github.thiagolocatelli.pinpayments.net.APIResource;
 import com.google.gson.Gson;
@@ -27,23 +29,26 @@ public class ModelDeserializerTest {
 	@Test
 	public void deserializeChargeAttributes() throws IOException {
 		String json = resource("charge.json");
-		Charge charge = gson.fromJson(json, Charge.class);
+		PinPaymentResponse response = gson.fromJson(json, PinPaymentResponse.class);
+		Charge charge = gson.fromJson(response.getResponse(), Charge.class);
 		assertThat(charge.getAmount(), notNullValue());
 	}
 
 	@Test
 	public void deserializeCardEvent() throws IOException {
 		String json = resource("card.json");
-		Card card = APIObject.PRETTY_PRINT_GSON.fromJson(json, Card.class);
+		PinPaymentResponse response = gson.fromJson(json, PinPaymentResponse.class);
+		Card card = APIObject.PRETTY_PRINT_GSON.fromJson(response.getResponse(), Card.class);
 		assertEquals(card.getToken(), "card_nytGw7koRg23EEp9NTmz9w");
 	}
 
 	@Test
 	public void deserializeCustomerEvent() throws IOException {
 		String json = resource("customer.json");
-		Customer customer = APIObject.PRETTY_PRINT_GSON.fromJson(json,
+		PinPaymentResponse response = gson.fromJson(json, PinPaymentResponse.class);
+		Customer customer = APIObject.PRETTY_PRINT_GSON.fromJson(response.getResponse(),
 				Customer.class);
-		assertEquals(customer.getEmail(), "roland@pin.net.auu");
+		assertEquals(customer.getEmail(), "roland@pin.net.au");
 	}
 
 	@Test
@@ -66,6 +71,14 @@ public class ModelDeserializerTest {
 		String json = resource("refunds.json");
 		RefundCollection refunds = APIObject.PRETTY_PRINT_GSON.fromJson(json,
 				RefundCollection.class);
+		assertThat(refunds.getPagination().getPerPage(), notNullValue());
+	}
+	
+	@Test
+	public void deserializePinPaymentsCollectionResponse() throws IOException {
+		String json = resource("charges.json");
+		PinPaymentCollectionResponse refunds = APIObject.PRETTY_PRINT_GSON.fromJson(json,
+				PinPaymentCollectionResponse.class);
 		assertThat(refunds.getPagination().getPerPage(), notNullValue());
 	}
 

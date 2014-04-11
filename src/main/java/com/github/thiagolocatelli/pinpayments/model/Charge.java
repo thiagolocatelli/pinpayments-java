@@ -1,6 +1,7 @@
 package com.github.thiagolocatelli.pinpayments.model;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import com.github.thiagolocatelli.pinpayments.exception.APIConnectionException;
@@ -26,7 +27,7 @@ public class Charge extends APIResource {
 	Card card;
 	Boolean captured;
 	Boolean authorisationExpired;
-	String transfer;
+	List<Transfer> transfer;
 	String settlementCurrency;
 
 	public String getToken() {
@@ -133,11 +134,11 @@ public class Charge extends APIResource {
 		this.authorisationExpired = authorisationExpired;
 	}
 
-	public String getTransfer() {
+	public List<Transfer> getTransfer() {
 		return transfer;
 	}
 
-	public void setTransfer(String transfer) {
+	public void setTransfer(List<Transfer> transfer) {
 		this.transfer = transfer;
 	}
 

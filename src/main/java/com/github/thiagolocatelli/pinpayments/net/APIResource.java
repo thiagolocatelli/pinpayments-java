@@ -31,11 +31,14 @@ import com.github.thiagolocatelli.pinpayments.exception.InvalidRequestException;
 import com.github.thiagolocatelli.pinpayments.exception.InvalidResourceException;
 import com.github.thiagolocatelli.pinpayments.exception.ResourceNotFoundException;
 import com.github.thiagolocatelli.pinpayments.model.APIObject;
+import com.github.thiagolocatelli.pinpayments.model.PinPaymentCollectionResponse;
 import com.github.thiagolocatelli.pinpayments.model.PinPaymentResponse;
 import com.github.thiagolocatelli.pinpayments.utils.BASE64EncoderStream;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 public abstract class APIResource extends APIObject {
 
@@ -455,11 +458,16 @@ public abstract class APIResource extends APIObject {
 			handleAPIError(rBody, rCode);
 		}
 		
-		PinPaymentResponse resp = GSON.fromJson(rBody, PinPaymentResponse.class);
-		if(resp.getPagination() == null) {
+		JsonObject obj = GSON.fromJson(rBody, JsonObject.class);
+		if(obj.get("response") instanceof JsonArray) {
+			return GSON.fromJson(rBody, clazz);
+		}
+		else {
+			PinPaymentResponse resp = GSON.fromJson(rBody, PinPaymentResponse.class);
 			return GSON.fromJson(resp.getResponse(), clazz);
 		}
-		return GSON.fromJson(rBody, clazz);
+		
+		
 	}
 
 	private static void handleAPIError(String rBody, int rCode)

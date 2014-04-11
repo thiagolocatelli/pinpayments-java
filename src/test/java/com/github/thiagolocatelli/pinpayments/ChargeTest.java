@@ -86,7 +86,7 @@ public class ChargeTest {
 		
 	}
 	
-	@Test
+	//@Test
 	public void testChargeWithCardDeclined() throws PinPaymentsException {
 		
 		//create charge with card information inline
@@ -99,7 +99,7 @@ public class ChargeTest {
 		
 	}
 	
-	@Test
+	//@Test
 	public void testChargeWithInsufficientFunds() throws PinPaymentsException {
 		
 		//create charge with card information inline
@@ -112,7 +112,7 @@ public class ChargeTest {
 		
 	}
 	
-	@Test
+	//@Test
 	public void testChargeWithInvalidCard() throws PinPaymentsException {
 		
 		//create charge with card information inline
