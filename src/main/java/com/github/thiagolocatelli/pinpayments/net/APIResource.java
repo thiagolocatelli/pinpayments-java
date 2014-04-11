@@ -31,7 +31,6 @@ import com.github.thiagolocatelli.pinpayments.exception.InvalidRequestException;
 import com.github.thiagolocatelli.pinpayments.exception.InvalidResourceException;
 import com.github.thiagolocatelli.pinpayments.exception.ResourceNotFoundException;
 import com.github.thiagolocatelli.pinpayments.model.APIObject;
-import com.github.thiagolocatelli.pinpayments.model.PinPaymentCollectionResponse;
 import com.github.thiagolocatelli.pinpayments.model.PinPaymentResponse;
 import com.github.thiagolocatelli.pinpayments.utils.BASE64EncoderStream;
 import com.google.gson.FieldNamingPolicy;
@@ -297,11 +296,6 @@ public abstract class APIResource extends APIObject {
 			}
 		}
 		return flatParams;
-	}
-
-	// represents Errors returned as JSON
-	private static class ErrorContainer {
-		private APIResource.Error error;
 	}
 
 	public static class Error {

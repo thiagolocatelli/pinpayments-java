@@ -1,5 +1,6 @@
 package com.github.thiagolocatelli.pinpayments.model;
 
+import java.util.Date;
 import java.util.Map;
 
 import com.github.thiagolocatelli.pinpayments.exception.APIConnectionException;
@@ -14,7 +15,7 @@ public class Customer extends APIResource {
 
 	String token;
 	String email;
-	String createdAt;
+	Date createdAt;
 	Card card;
 
 	public String getToken() {
@@ -33,11 +34,11 @@ public class Customer extends APIResource {
 		this.email = email;
 	}
 
-	public String getCreatedAt() {
+	public Date getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreatedAt(String createdAt) {
+	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
 	}
 

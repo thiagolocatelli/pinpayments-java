@@ -17,7 +17,7 @@ public class DateDeserializer  implements JsonDeserializer<Date> {
 		String date = element.getAsString();
 		
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss'Z'");
-		formatter.setTimeZone(TimeZone.getTimeZone("Australia/Sydney"));
+		formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
 		
 		try {
 			return formatter.parse(date);

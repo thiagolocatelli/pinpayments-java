@@ -2,6 +2,7 @@ package com.github.thiagolocatelli.pinpayments;
 
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,6 +10,7 @@ import java.util.Map;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.github.thiagolocatelli.pinpayments.exception.InvalidRequestException;
 import com.github.thiagolocatelli.pinpayments.exception.PinPaymentsException;
 import com.github.thiagolocatelli.pinpayments.model.Card;
 import com.github.thiagolocatelli.pinpayments.model.Charge;
@@ -86,7 +88,7 @@ public class ChargeTest {
 		
 	}
 	
-	//@Test
+	@Test(expected = InvalidRequestException.class)
 	public void testChargeWithCardDeclined() throws PinPaymentsException {
 		
 		//create charge with card information inline
@@ -99,7 +101,7 @@ public class ChargeTest {
 		
 	}
 	
-	//@Test
+	@Test(expected = InvalidRequestException.class)
 	public void testChargeWithInsufficientFunds() throws PinPaymentsException {
 		
 		//create charge with card information inline
@@ -112,7 +114,7 @@ public class ChargeTest {
 		
 	}
 	
-	//@Test
+	@Test(expected = InvalidRequestException.class)
 	public void testChargeWithInvalidCard() throws PinPaymentsException {
 		
 		//create charge with card information inline
@@ -125,6 +127,58 @@ public class ChargeTest {
 		
 	}
 	
+	@Test(expected = InvalidRequestException.class)
+	public void testChargeProcessingError() throws PinPaymentsException {
+		
+		//create charge with card information inline
+		Map<String, Object> chargeParams = new HashMap<String, Object>();
+		chargeParams.putAll(defaultChargeParams);
+		chargeParams.putAll(defaultCardParams);
+		chargeParams.put("card[number]", "4700000000000005");
+		Charge charge = Charge.create(chargeParams);
+		assertThat(charge.getToken(), notNullValue());
+		
+	}
+	
+	@Test(expected = InvalidRequestException.class)
+	public void testChargeSuspectedFraud() throws PinPaymentsException {
+		
+		//create charge with card information inline
+		Map<String, Object> chargeParams = new HashMap<String, Object>();
+		chargeParams.putAll(defaultChargeParams);
+		chargeParams.putAll(defaultCardParams);
+		chargeParams.put("card[number]", "4600000000000006");
+		Charge charge = Charge.create(chargeParams);
+		assertThat(charge.getToken(), notNullValue());
+		
+	}
+	
+	@Test(expected = InvalidRequestException.class)
+	public void testChargeUnknown() throws PinPaymentsException {
+		
+		//create charge with card information inline
+		Map<String, Object> chargeParams = new HashMap<String, Object>();
+		chargeParams.putAll(defaultChargeParams);
+		chargeParams.putAll(defaultCardParams);
+		chargeParams.put("card[number]", "4400000000000099");
+		Charge charge = Charge.create(chargeParams);
+		assertThat(charge.getToken(), notNullValue());
+		
+	}
+	
+	@Test(expected = InvalidRequestException.class)
+	public void testChargeInvalidCVV() throws PinPaymentsException {
+		
+		//create charge with card information inline
+		Map<String, Object> chargeParams = new HashMap<String, Object>();
+		chargeParams.putAll(defaultChargeParams);
+		chargeParams.putAll(defaultCardParams);
+		chargeParams.put("card[number]", "4900000000000003");
+		Charge charge = Charge.create(chargeParams);
+		assertThat(charge.getToken(), notNullValue());
+		
+	}
+	
 	@Test
 	public void testChargeSearch() throws PinPaymentsException {
 		
@@ -132,6 +186,7 @@ public class ChargeTest {
 		searchParams.put("query", "Java Bindings");
 		ChargeCollection chargeCollection = Charge.search(searchParams);
 		assertThat(chargeCollection.getPagination(), notNullValue());
+		assertTrue(chargeCollection.getPagination().getCount() > 0);
 		
 	}
 	
