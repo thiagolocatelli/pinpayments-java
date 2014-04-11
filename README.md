@@ -29,29 +29,33 @@ Usage
 
 PinPaymentExample.java
 
-    import java.util.HashMap;
-    import java.util.Map;
-
-    import com.stripe.Stripe;
-    import com.stripe.exception.StripeException;
-    import com.stripe.model.Charge;
-
-    public class StripeExample {
+    
+    public class PinPaymentsExample {
 
         public static void main(String[] args) {
             PinPayments.apiKey = "YOUR-SECRET-KEY";
             Map<String, Object> chargeMap = new HashMap<String, Object>();
             chargeMap.put("amount", 100);
-            chargeMap.put("currency", "usd");
+            chargeMap.put("currency", "AUD");
+            chargeMap.put("email", "thiago.locatelli@gmail.com");
+            chargeMap.put("description", "Pin Payments Java Bindings tests");
+            chargeMap.put("ip_address", "127.0.0.1");
             Map<String, Object> cardMap = new HashMap<String, Object>();
-            cardMap.put("number", "4242424242424242");
-            cardMap.put("exp_month", 12);
-            cardMap.put("exp_year", 2020);
+            cardMap.put("expiry_month", 12);
+            cardMap.put("expiry_year", 2015);
+            cardMap.put("cvc", 123);
+            cardMap.put("name", "Roland Robot");
+            cardMap.put("address_line1", "42 Sevenoaks St");
+            cardMap.put("address_line2", "Apartment 5");
+            cardMap.put("address_city", "Lathlain");
+            cardMap.put("address_postcode", "6454");
+            cardMap.put("address_state", "WA");
+            cardMap.put("address_country", "Australia");
             chargeMap.put("card", cardMap);
             try {
                 Charge charge = Charge.create(chargeMap);
                 System.out.println(charge);
-            } catch (StripeException e) {
+            } catch (PinPaymentsException e) {
                 e.printStackTrace();
             }
         }
@@ -60,4 +64,4 @@ PinPaymentExample.java
 Testing
 =======
 
-You must have Maven installed. To run the tests, simply run `mvn test`. You can run particular tests by passing `-D test=Class#method` -- for example, `-D test=StripeTest#testPlanCreate`.
+You must have Maven installed. To run the tests, simply run `mvn test`.
