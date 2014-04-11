@@ -29,7 +29,7 @@ Usage
 
 PinPaymentExample.java
 
-    
+```JAVA    
     public class PinPaymentsExample {
 
         public static void main(String[] args) {
@@ -60,6 +60,7 @@ PinPaymentExample.java
             }
         }
     }
+```
 
 Testing
 =======
