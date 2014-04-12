@@ -27,21 +27,21 @@ public class CustomerTest {
 	@Test
 	public void testCustomerCreateWithCard() throws PinPaymentsException {
 		Map<String, Object> cardParams = new HashMap<String, Object>();
-		cardParams.put("card[number]", "4200000000000000");
-		cardParams.put("card[expiry_month]", 12);
-		cardParams.put("card[expiry_year]", 2015);
-		cardParams.put("card[cvc]", 123);
-		cardParams.put("card[name]", "Roland Robot");
-		cardParams.put("card[address_line1]", "42 Sevenoaks St");
-		cardParams.put("card[address_line2]", "Apartment 5");
-		cardParams.put("card[address_city]", "Lathlain");
-		cardParams.put("card[address_postcode]", "6454");
-		cardParams.put("card[address_state]", "WA");
-		cardParams.put("card[address_country]", "Australia");
+		cardParams.put("number", "4200000000000000");
+		cardParams.put("expiry_month", 12);
+		cardParams.put("expiry_year", 2015);
+		cardParams.put("cvc", 123);
+		cardParams.put("name", "Roland Robot");
+		cardParams.put("address_line1", "42 Sevenoaks St");
+		cardParams.put("address_line2", "Apartment 5");
+		cardParams.put("address_city", "Lathlain");
+		cardParams.put("address_postcode", "6454");
+		cardParams.put("address_state", "WA");
+		cardParams.put("address_country", "Australia");
 
 		Map<String, Object> customerParams = new HashMap<String, Object>();
-		customerParams.put("email", "thiago.locatelli@gmail.com");
-		customerParams.putAll(cardParams);
+		customerParams.put("email", "roland.robots@gmail.com");
+		customerParams.put("card", cardParams);
 		Customer customer = Customer.create(customerParams);
 		assertThat(customer.getToken(), notNullValue());
 	}
@@ -64,7 +64,7 @@ public class CustomerTest {
 		Card card = Card.create(cardParams);
 		
 		Map<String, Object> customerParams = new HashMap<String, Object>();
-		customerParams.put("email", "thiago.locatelli@gmail.com");
+		customerParams.put("email", "roland.robots@gmail.com");
 		customerParams.put("card_token", card.getToken());
 		Customer customer = Customer.create(customerParams);
 		assertThat(customer.getToken(), notNullValue());

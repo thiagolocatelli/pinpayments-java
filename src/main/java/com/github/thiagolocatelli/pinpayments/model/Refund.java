@@ -89,7 +89,7 @@ public class Refund extends APIResource {
 			throws AuthenticationException, InvalidRequestException,
 			APIConnectionException, APIException, ResourceNotFoundException,
 			InvalidResourceException {
-		return create(params, null);
+		return create(params, token, null);
 	}
 
 	public static Refund create(Map<String, Object> params, String token, String apiKey)

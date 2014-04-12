@@ -48,7 +48,7 @@ public class ChargeTest {
 		defaultCardParams.put("card[address_state]", "WA");
 		defaultCardParams.put("card[address_country]", "Australia");
 
-		defaultChargeParams.put("email", "thiago.locatelli@gmail.com");
+		defaultChargeParams.put("email", "roland.robot@gmail.com");
 		defaultChargeParams.put("description", "Pin Payments Java Bindings tests");
 		defaultChargeParams.put("amount", 199);
 		defaultChargeParams.put("ip_address", "127.0.0.1");

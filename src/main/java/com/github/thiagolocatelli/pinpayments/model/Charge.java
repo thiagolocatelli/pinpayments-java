@@ -29,6 +29,12 @@ public class Charge extends APIResource {
 	Boolean authorisationExpired;
 	List<Transfer> transfer;
 	String settlementCurrency;
+	
+	//refund related fields
+	Integer amountRefunded;
+	Integer totalFees;
+	Integer merchantEntitlement;
+	Boolean refundPending;
 
 	public String getToken() {
 		return token;
@@ -148,6 +154,38 @@ public class Charge extends APIResource {
 
 	public void setSettlementCurrency(String settlementCurrency) {
 		this.settlementCurrency = settlementCurrency;
+	}
+
+	public Integer getAmountRefunded() {
+		return amountRefunded;
+	}
+
+	public void setAmountRefunded(Integer amountRefunded) {
+		this.amountRefunded = amountRefunded;
+	}
+
+	public Integer getTotalFees() {
+		return totalFees;
+	}
+
+	public void setTotalFees(Integer totalFees) {
+		this.totalFees = totalFees;
+	}
+
+	public Integer getMerchantEntitlement() {
+		return merchantEntitlement;
+	}
+
+	public void setMerchantEntitlement(Integer merchantEntitlement) {
+		this.merchantEntitlement = merchantEntitlement;
+	}
+
+	public Boolean getRefundPending() {
+		return refundPending;
+	}
+
+	public void setRefundPending(Boolean refundPending) {
+		this.refundPending = refundPending;
 	}
 
 	public static Charge create(Map<String, Object> params)
