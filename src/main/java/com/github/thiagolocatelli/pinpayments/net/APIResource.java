@@ -65,7 +65,7 @@ public abstract class APIResource extends APIObject {
 		} catch (UnsupportedEncodingException e) {
 			throw new InvalidRequestException("encode_error","Unable to encode parameters to "
 					+ CHARSET
-					+ ". Please contact support@stripe.com for assistance.");
+					+ ". Please contact me for assistance.");
 		}
 	}
 
