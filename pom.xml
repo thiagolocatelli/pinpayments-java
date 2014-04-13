@@ -7,6 +7,7 @@
 	<version>1.0-SNAPSHOT</version>
 	<name>pinpayments-java</name>
 	<url>https://github.com/thiagolocatelli/pinpayments-java</url>
+
 	<dependencies>
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
@@ -21,7 +22,7 @@
 		</dependency>
 	</dependencies>
 	<description>Pin Payments Java Bindings</description>
-	
+
 	<developers>
 		<developer>
 			<id>pinpayments-java</id>
@@ -29,7 +30,7 @@
 			<email>thiago.locatelli@gmail.com</email>
 		</developer>
 	</developers>
-	
+
 	<parent>
 		<groupId>org.sonatype.oss</groupId>
 		<artifactId>oss-parent</artifactId>
