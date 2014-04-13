@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>Pinpayments-java by thiagolocatelli</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>Pinpayments-java</h1>
+        <h2>@thiagolocatelli</h2>
+        <a href="https://github.com/thiagolocatelli/pinpayments-java" class="button"><small>View project on</small>GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h1>
+<a name="pin-payments-java-bindings" class="anchor" href="#pin-payments-java-bindings"><span class="octicon octicon-link"></span></a>Pin Payments Java Bindings</h1>
+
+<p>You can sign up for a Pin Payments account at <a href="https://pin.net.au">https://pin.net.au</a>.</p>
+
+<h1>
+<a name="requirements" class="anchor" href="#requirements"><span class="octicon octicon-link"></span></a>Requirements</h1>
+
+<p>Java 1.5 and later.</p>
+
+<h1>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h1>
+
+<h3>
+<a name="maven-users" class="anchor" href="#maven-users"><span class="octicon octicon-link"></span></a>Maven users</h3>
+
+<p>Add this dependency to your project's POM:</p>
+
+<pre><code>&lt;dependency&gt;
+  &lt;groupId&gt;com.github.thiagolocatelli&lt;/groupId&gt;
+  &lt;artifactId&gt;pinpayments-java&lt;/artifactId&gt;
+  &lt;version&gt;1.0&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+
+<h3>
+<a name="others" class="anchor" href="#others"><span class="octicon octicon-link"></span></a>Others</h3>
+
+<p>Download the project and build on your local workspace</p>
+
+<h1>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h1>
+
+<p>PinPaymentExample.java</p>
+
+<div class="highlight highlight-JAVA"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">PinPaymentsExample</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">PinPayments</span><span class="o">.</span><span class="na">apiKey</span> <span class="o">=</span> <span class="s">"YOUR-SECRET-KEY"</span><span class="o">;</span>
+        <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">chargeMap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;();</span>
+        <span class="n">chargeMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"amount"</span><span class="o">,</span> <span class="mi">100</span><span class="o">);</span>
+        <span class="n">chargeMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"currency"</span><span class="o">,</span> <span class="s">"AUD"</span><span class="o">);</span>
+        <span class="n">chargeMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"email"</span><span class="o">,</span> <span class="s">"thiago.locatelli@gmail.com"</span><span class="o">);</span>
+        <span class="n">chargeMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"description"</span><span class="o">,</span> <span class="s">"Pin Payments Java Bindings tests"</span><span class="o">);</span>
+        <span class="n">chargeMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"ip_address"</span><span class="o">,</span> <span class="s">"127.0.0.1"</span><span class="o">);</span>
+        <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">cardMap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;();</span>
+        <span class="n">cardMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"expiry_month"</span><span class="o">,</span> <span class="mi">12</span><span class="o">);</span>
+        <span class="n">cardMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"expiry_year"</span><span class="o">,</span> <span class="mi">2015</span><span class="o">);</span>
+        <span class="n">cardMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"cvc"</span><span class="o">,</span> <span class="mi">123</span><span class="o">);</span>
+        <span class="n">cardMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"name"</span><span class="o">,</span> <span class="s">"Roland Robot"</span><span class="o">);</span>
+        <span class="n">cardMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"address_line1"</span><span class="o">,</span> <span class="s">"42 Sevenoaks St"</span><span class="o">);</span>
+        <span class="n">cardMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"address_line2"</span><span class="o">,</span> <span class="s">"Apartment 5"</span><span class="o">);</span>
+        <span class="n">cardMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"address_city"</span><span class="o">,</span> <span class="s">"Lathlain"</span><span class="o">);</span>
+        <span class="n">cardMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"address_postcode"</span><span class="o">,</span> <span class="s">"6454"</span><span class="o">);</span>
+        <span class="n">cardMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"address_state"</span><span class="o">,</span> <span class="s">"WA"</span><span class="o">);</span>
+        <span class="n">cardMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"address_country"</span><span class="o">,</span> <span class="s">"Australia"</span><span class="o">);</span>
+        <span class="n">chargeMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"card"</span><span class="o">,</span> <span class="n">cardMap</span><span class="o">);</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">Charge</span> <span class="n">charge</span> <span class="o">=</span> <span class="n">Charge</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="n">chargeMap</span><span class="o">);</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">charge</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">PinPaymentsException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+<h1>
+<a name="testing" class="anchor" href="#testing"><span class="octicon octicon-link"></span></a>Testing</h1>
+
+<p>You must have Maven installed. To run the tests, simply run <code>mvn test</code>.</p>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/thiagolocatelli/pinpayments-java/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/thiagolocatelli/pinpayments-java/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/thiagolocatelli/pinpayments-java"></a> is maintained by <a href="https://github.com/thiagolocatelli">thiagolocatelli</a>.</p>
+
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+  
+  </body>
+</html>
