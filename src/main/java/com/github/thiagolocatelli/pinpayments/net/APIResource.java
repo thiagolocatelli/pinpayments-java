@@ -78,7 +78,7 @@ public abstract class APIResource extends APIObject {
 	 * URLStreamHandler; Settings the property should not be needed in most
 	 * environments.
 	 */
-	private static final String CUSTOM_URL_STREAM_HANDLER_PROPERTY_NAME = "com.stripe.net.customURLStreamHandler";
+	private static final String CUSTOM_URL_STREAM_HANDLER_PROPERTY_NAME = "com.pinpayments.net.customURLStreamHandler";
 
 	protected enum RequestMethod {
 		GET, POST, DELETE, PUT
@@ -134,7 +134,7 @@ public abstract class APIResource extends APIObject {
 	@SuppressWarnings("unchecked")
 	private static javax.net.ssl.HttpsURLConnection createPinPaymentConnection(
 			String url, String apiKey) throws IOException {
-		URL stripeURL = null;
+		URL pinpaymentURL = null;
 		String customURLStreamHandlerClassName = System.getProperty(
 				CUSTOM_URL_STREAM_HANDLER_PROPERTY_NAME, null);
 		if (customURLStreamHandlerClassName != null) {
@@ -145,7 +145,7 @@ public abstract class APIResource extends APIObject {
 				Constructor<URLStreamHandler> constructor = clazz
 						.getConstructor();
 				URLStreamHandler customHandler = constructor.newInstance();
-				stripeURL = new URL(null, url, customHandler);
+				pinpaymentURL = new URL(null, url, customHandler);
 			} catch (ClassNotFoundException e) {
 				throw new IOException(e);
 			} catch (SecurityException e) {
@@ -162,9 +162,9 @@ public abstract class APIResource extends APIObject {
 				throw new IOException(e);
 			}
 		} else {
-			stripeURL = new URL(url);
+			pinpaymentURL = new URL(url);
 		}
-		javax.net.ssl.HttpsURLConnection conn = (javax.net.ssl.HttpsURLConnection) stripeURL
+		javax.net.ssl.HttpsURLConnection conn = (javax.net.ssl.HttpsURLConnection) pinpaymentURL
 				.openConnection();
 		conn.setConnectTimeout(30 * 1000);
 		conn.setReadTimeout(80 * 1000);
@@ -178,7 +178,7 @@ public abstract class APIResource extends APIObject {
 
 	private static void throwInvalidCertificateException() throws APIConnectionException {
 		throw new APIConnectionException("invalid_certificate",
-				"Invalid server certificate. You tried to connect to a server that has a revoked SSL certificate, which means we cannot securely send data to that server. Please email support@stripe.com if you need help connecting to the correct API server.");
+				"Invalid server certificate. You tried to connect to a server that has a revoked SSL certificate, which means we cannot securely send data to that server.");
 	}
 
 	private static void checkSSLCert(javax.net.ssl.HttpsURLConnection conn) throws IOException, APIConnectionException {
@@ -341,7 +341,7 @@ public abstract class APIResource extends APIObject {
 				throw new APIConnectionException("invalid_http_method",
 						String.format("Unrecognized HTTP method %s. "
 										+ "This indicates a bug in the PinPayments bindings. Please contact "
-										+ "support@stripe.com for assistance.",
+										+ "me for assistance.",
 								method));
 			}
                         // trigger the request
@@ -360,10 +360,8 @@ public abstract class APIResource extends APIObject {
 		} catch (IOException e) {
 			throw new APIConnectionException(
 					String.format(
-							"Could not connect to Stripe (%s). "
-									+ "Please check your internet connection and try again. If this problem persists,"
-									+ "you should check Stripe's service status at https://twitter.com/stripestatus,"
-									+ " or let us know at support@stripe.com.",
+							"Could not connect to Pin Payment (%s). "
+									+ "Please check your internet connection and try again.",
 									PinPayments.getApiBase()), e);
 		} finally {
 			if (conn != null) {
@@ -489,7 +487,7 @@ public abstract class APIResource extends APIObject {
 	private static APIResponse makeAppEngineRequest(RequestMethod method,
 			String url, String query, String apiKey) throws APIException {
 		String unknownErrorMessage = "Sorry, an unknown error occurred while trying to use the "
-				+ "Google App Engine runtime. Please contact support@stripe.com for assistance.";
+				+ "Google App Engine runtime.";
 		try {
 			if (method == RequestMethod.GET || method == RequestMethod.DELETE) {
 				url = String.format("%s?%s", url, query);
@@ -510,8 +508,7 @@ public abstract class APIResource extends APIObject {
 			} catch (NoSuchMethodException e) {
 				System.err
 						.println("Warning: this App Engine SDK version does not allow verification of SSL certificates;"
-								+ "this exposes you to a MITM attack. Please upgrade your App Engine SDK to >=1.5.0. "
-								+ "If you have questions, contact support@stripe.com.");
+								+ "this exposes you to a MITM attack. Please upgrade your App Engine SDK to >=1.5.0.");
 				fetchOptions = fetchOptionsBuilderClass.getDeclaredMethod(
 						"withDefaults").invoke(null);
 			}
