@@ -44,7 +44,6 @@ public abstract class APIResource extends APIObject {
 	public static final Gson GSON = new GsonBuilder()
 			.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
 			.registerTypeAdapter(Date.class, new DateDeserializer())
-			//.registerTypeAdapter(StripeRawJsonObject.class, new StripeRawJsonObjectDeserializer())
 			.create();
 
 	private static String className(Class<?> clazz) {
@@ -517,7 +516,7 @@ public abstract class APIResource extends APIObject {
 					.forName("com.google.appengine.api.urlfetch.FetchOptions");
 
 			// GAE requests can time out after 60 seconds, so make sure we leave
-			// some time for the application to handle a slow Stripe
+			// some time for the application to handle a slow Pin Payments
 			fetchOptionsClass.getDeclaredMethod("setDeadline",
 					java.lang.Double.class)
 					.invoke(fetchOptions, new Double(55));
